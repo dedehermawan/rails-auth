@@ -10,6 +10,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
+      log_in @user  # method helper session
       flash[:success] = "Selamat kamu berhasil daftar"
       redirect_to @user
     else
