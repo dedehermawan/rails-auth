@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password])
       log_in user         # method helper sessions
       params[:session][:remember_me] == '1' ? remember(user) : forget(user)
-      redirect_to user
+      redirect_to root_path 
     else
       flash.now[:danger] = 'Invalid username/pasword combination'
       render 'new'
@@ -16,6 +16,6 @@ class SessionsController < ApplicationController
 
   def destroy
     log_out   #method helper session
-    redirect_to root_url
+    redirect_to login_url 
   end
 end
