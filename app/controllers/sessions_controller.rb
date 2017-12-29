@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  before_action :not_logged_in_user, only: [:new, :create]
+
   def new
   end
 
@@ -7,7 +9,7 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password])
       log_in user         # method helper sessions
       params[:session][:remember_me] == '1' ? remember(user) : forget(user)
-      redirect_to root_path 
+      redirect_back_or user 
     else
       flash.now[:danger] = 'Invalid username/pasword combination'
       render 'new'

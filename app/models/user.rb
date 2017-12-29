@@ -6,7 +6,7 @@ class User < ApplicationRecord
   validates :name       , presence: true, length: {maximum: 30}
 
   has_secure_password
-  validates :password   , presence: true, length: {minimum: 3}
+  validates :password   , presence: true, length: {minimum: 3}, allow_nil: true  #allow_nil digunakan pada saat update users
 
   # Returns the hash digest of the given string
   def User.digest(string)
